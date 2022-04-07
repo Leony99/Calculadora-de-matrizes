@@ -32,6 +32,13 @@ public class Main {
                     System.out.println("--------CRIAR MATRIZ--------\n");
                     System.out.print("Informe o nome da matriz: ");
                     string1 = scan.next();
+                    //Nome repetido:
+                    if (procurarIndex(matrizes, string1) != -1) {
+                        System.out.println("Nome já existente!\n");
+                        voltarMenu();
+                        limpar();
+                        break;
+                    }
                     System.out.print("Informe o número de linhas da matriz: ");
                     int1 = scan.nextInt();
                     System.out.print("Informe o número de colunas da matriz: ");
@@ -57,7 +64,6 @@ public class Main {
                     System.out.print("Insira o nome da matriz que deseja excluir: ");
                     string1 = scan.next();
                     int1 = procurarIndex(matrizes, string1);
-                    System.out.println();
 
                     //Nome inválido
                     if (int1 == -1) {
@@ -86,14 +92,13 @@ public class Main {
                     System.out.print("Insira o nome da segunda matriz: ");
                     string2 = scan.next();
                     int2 = procurarIndex(matrizes, string2);
-                    System.out.println();
-
                     //Nomes inválidos
                     if (nomesInvalidos(int1, int2)) {
                         voltarMenu();
                         limpar();
                         break;
                     }
+                    System.out.println();
 
                     //Nomes válidos
                     Matriz matrizSoma = new Matriz
@@ -124,14 +129,13 @@ public class Main {
                     System.out.print("Insira o nome da segunda matriz: ");
                     string2 = scan.next();
                     int2 = procurarIndex(matrizes, string2);
-                    System.out.println();
-
                     //Nomes inválidos
                     if (nomesInvalidos(int1, int2)) {
                         voltarMenu();
                         limpar();
                         break;
                     }
+                    System.out.println();
 
                     //Nomes válidos
                     Matriz matrizSubtracao = new Matriz
@@ -162,14 +166,13 @@ public class Main {
                     System.out.print("Insira o nome da segunda matriz: ");
                     string2 = scan.next();
                     int2 = procurarIndex(matrizes, string2);
-                    System.out.println();
-
                     //Nomes inválidos
                     if (nomesInvalidos(int1, int2)) {
                         voltarMenu();
                         limpar();
                         break;
                     }
+                    System.out.println();
 
                     //Nomes válidos
                     Matriz matrizMultiplicacao = new Matriz
@@ -200,7 +203,9 @@ public class Main {
         while (opcaoMenu != 6);
     }
 
+    //Mostrar matriz única
     private static void mostrarMatriz(Matriz matriz){
+        //Mostrar nome, tamanho e tipo da matriz
         System.out.print("Matriz" + "(" + matriz.getNome() + ")" +
                 "[" + matriz.getLinhas() + "x" + matriz.getColunas() + "]");
         if (matriz.getTipoTamanho() != null && matriz.getTipoElementos() != null) {
@@ -216,18 +221,25 @@ public class Main {
             System.out.println("{Matriz Normal}:");
         }
 
+        //Mostrar elementos
         for (int i = 0; i < matriz.getElementos().length; i++) {
             for (int j = 0; j < matriz.getElementos()[0].length; j++) {
                 if (j != 0) {
-                    System.out.print("\t\t");
+                    System.out.print("\t");
                 }
-                System.out.print(matriz.getElementos()[i][j]);
+                if (checarInt(matriz.getElementos()[i][j])) {
+                    System.out.printf("%-8.0f",matriz.getElementos()[i][j]);
+                }
+                else {
+                    System.out.printf("%-8.2f",matriz.getElementos()[i][j]);
+                }
             }
             System.out.println();
         }
         System.out.println();
     }
 
+    //Mostrar todas as matrizes contidas na lista
     private static void mostrarMatrizes(List<Matriz> matrizes){
         System.out.println("----------MATRIZES----------\n");
         if (matrizes.isEmpty()){
@@ -238,6 +250,7 @@ public class Main {
         }
     }
 
+    //Salvar matriz na lista após a criação
     private static void salvarMatriz(List<Matriz> matrizes, Matriz matriz){
         Scanner scan = new Scanner(System.in);
 
@@ -254,8 +267,10 @@ public class Main {
         }
     }
 
+    //Procurar o index da matriz na lista, utilizando o atributo nome
     private static int procurarIndex(List<Matriz> matrizes, String nome) {
         int index = -1;
+
         for (Matriz m : matrizes) {
             if (m.getNome().equals(nome)) {
                 index = matrizes.indexOf(m);
@@ -265,6 +280,7 @@ public class Main {
         return index;
     }
 
+    //Mensagem para matriz não encontrada na lista, utilizando index das matrizes
     private static boolean nomesInvalidos(int int1, int int2) {
         if (int1 == -1 && int2 == -1) {
             System.out.println("Matrizes não encontradas!\n");
@@ -283,17 +299,25 @@ public class Main {
         }
     }
 
-    private static void limpar() {
-        for(int clear = 0; clear < 1000; clear++)
-        {
-            System.out.println("\r");
-        }
+    //Checagem de número decimal pertencente aos inteiros, para saída de dados
+    private static boolean checarInt(float f){
+        int x = (int)f;
+        return f - x == 0;
     }
 
+    //Mensagem para voltar ao menu principal
     private static void voltarMenu() throws InterruptedException {
         for (int i = 3; i >= 1; i--){
             System.out.println("Voltando ao menu em " + i + " segundo(s)...");
             Thread.sleep(1000);
+        }
+    }
+
+    //Limpar console para voltar ao menu principal
+    private static void limpar() {
+        for(int clear = 0; clear < 1000; clear++)
+        {
+            System.out.println("\r");
         }
     }
 }

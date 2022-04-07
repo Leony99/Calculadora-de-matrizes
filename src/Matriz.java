@@ -1,10 +1,9 @@
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Matriz {
     private String nome;
     private int linhas, colunas;
-    private int[][] elementos;
+    private float[][] elementos;
     private String tipoTamanho, tipoElementos;
 
     public Matriz(String nome, int linhas, int colunas) {
@@ -34,20 +33,20 @@ public class Matriz {
         this.colunas = colunas;
     }
 
-    public int[][]getElementos() {
+    public float[][] getElementos() {
         return this.elementos;
     }
-    public void setElementos(int[][] elementos) {
+    public void setElementos(float[][] elementos) {
         this.elementos = elementos;
     }
     public void setElementos() {
         Scanner scan = new Scanner(System.in);
 
-        int[][] matrizResultante = new int[getLinhas()][getColunas()];
+        float[][] matrizResultante = new float[getLinhas()][getColunas()];
         for (int i = 0; i < getLinhas(); i++) {
             for (int j = 0; j < getColunas(); j++) {
                 System.out.printf("Matriz " + getNome() + "[%d][%d]: ", i + 1, j + 1);
-                matrizResultante[i][j] = scan.nextInt();
+                matrizResultante[i][j] = scan.nextFloat();
             }
         }
 
@@ -77,15 +76,17 @@ public class Matriz {
         //Descobrir se cada elemento da matriz é igual a zero.
         int contador1 = 0;
         for (int i = 0; i < this.getElementos().length; i++) {
-            if (Arrays.stream(this.getElementos()[i]).allMatch(elementosLinha -> elementosLinha == 0)){
-                contador1 += 1;
+            for (int j = 0; j < this.getElementos()[0].length; j++) {
+                if (this.getElementos()[i][j] == 0){
+                    contador1 += 1;
+                }
             }
         }
-        if (contador1 == this.getElementos().length) {
+        if (contador1 == (this.getElementos().length * this.getElementos()[0].length)) {
             this.tipoElementos = "Nula";
         }
 
-        //Se matriz não nula e quadrada
+        //Se matriz quadrada
         //Descobrir se os elementos da diagonal principal são iguais a um, e os demais elementos iguais a zero.
         if (this.getTipoTamanho() != null && this.getTipoTamanho().equals("Quadrada")) {
             int contador2 = 0, contador3 = 0;

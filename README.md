@@ -11,10 +11,10 @@ Uma calculadora de operações entre matrizes, feita somente com a finalidade de
 
 ## Tarefas:
 
-- [ ] Inserir erro para nome repetido.
+- [x] Inserir erro para nome repetido.
 - [ ] Inverter matriz.
 - [ ] transpor matriz.
 - [ ] opor matriz.
 - [ ] Dividir matrizes.
-- [ ] Trocar elementos das matrizes de int para real.
+- [x] Trocar elementos das matrizes de int para real.
 - [ ] Multiplicar matriz por um número real.
