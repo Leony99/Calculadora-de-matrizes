@@ -13,8 +13,8 @@ Uma calculadora de operações entre matrizes, feita somente com a finalidade de
 
 - [x] Inserir erro para nome repetido.
 - [ ] Inverter matriz.
-- [ ] transpor matriz.
-- [ ] opor matriz.
+- [x] transpor matriz.
+- [x] opor matriz.
 - [ ] Dividir matrizes.
 - [x] Trocar elementos das matrizes de int para real.
 - [ ] Multiplicar matriz por um número real.

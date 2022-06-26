@@ -13,13 +13,21 @@ public class Main {
 
         do {
             mostrarMatrizes(matrizes);
-            System.out.println("------------MENU------------\n");
+            System.out.println("------------MENU------------");
             System.out.println("1 - Criar matriz");
             System.out.println("2 - Excluir matriz");
-            System.out.println("3 - Somar matrizes");
-            System.out.println("4 - Subtrair matrizes");
-            System.out.println("5 - Multiplicar matrizes");
-            System.out.println("6 - Sair\n");
+            System.out.println("----------------------------");
+            //System.out.println("3 - Inverter matriz");
+            System.out.println("4 - Transpor matriz");
+            System.out.println("5 - Opor matriz");
+            System.out.println("----------------------------");
+            System.out.println("6 - Somar matrizes");
+            System.out.println("7 - Subtrair matrizes");
+            System.out.println("8 - Multiplicar matrizes");
+            //System.out.println("9 - Dividir matrizes");
+            //System.out.println("10 - Multiplicar por número real");
+            System.out.println("----------------------------");
+            System.out.println("11 - Sair\n");
             System.out.print("Insira a opção: ");
             opcaoMenu = scan.nextInt();
 
@@ -28,29 +36,32 @@ public class Main {
                     limpar();
                     mostrarMatrizes(matrizes);
 
-                    //Informações da matriz:
-                    System.out.println("--------CRIAR MATRIZ--------\n");
+                    //***Informações da matriz***
+                    System.out.println("-------CRIAR MATRIZ-------\n");
                     System.out.print("Informe o nome da matriz: ");
                     string1 = scan.next();
-                    //Nome repetido:
+                    System.out.print("Informe o número de linhas da matriz: ");
+                    int1 = scan.nextInt();
+                    System.out.print("Informe o número de colunas da matriz: ");
+                    int2 = scan.nextInt();
+                    System.out.println();
+                    //***Informações da matriz***
+
+                    //Nome inválido:
                     if (procurarIndex(matrizes, string1) != -1) {
                         System.out.println("Nome já existente!\n");
                         voltarMenu();
                         limpar();
                         break;
                     }
-                    System.out.print("Informe o número de linhas da matriz: ");
-                    int1 = scan.nextInt();
-                    System.out.print("Informe o número de colunas da matriz: ");
-                    int2 = scan.nextInt();
-                    System.out.println();
 
-                    //Criação da matriz:
+                    //***Nome válido***
                     Matriz matriz = new Matriz(string1, int1, int2);
                     matriz.setElementos();
                     matriz.setTipoTamanho();
                     matriz.setTipoElementos();
                     salvarMatriz(matrizes, matriz);
+                    //***Nome válido***
 
                     voltarMenu();
                     limpar();
@@ -59,13 +70,15 @@ public class Main {
                     limpar();
                     mostrarMatrizes(matrizes);
 
-                    //Informações da matriz
+                    //***Informações da matriz***
                     System.out.println("-------EXCLUIR MATRIZ-------\n");
                     System.out.print("Insira o nome da matriz que deseja excluir: ");
                     string1 = scan.next();
                     int1 = procurarIndex(matrizes, string1);
+                    System.out.println();
+                    //***Informações da matriz***
 
-                    //Nome inválido
+                    //Nome inválido:
                     if (int1 == -1) {
                         System.out.println("Matriz não encontrada!\n");
                         voltarMenu();
@@ -73,46 +86,10 @@ public class Main {
                         break;
                     }
 
-                    //Nome válido
+                    //***Nome válido***
                     matrizes.remove(int1);
                     System.out.println("Matriz excluída com sucesso!\n");
-
-                    voltarMenu();
-                    limpar();
-                    break;
-                case 3:
-                    limpar();
-                    mostrarMatrizes(matrizes);
-
-                    //Informações das matrizes
-                    System.out.println("-------SOMAR MATRIZES-------\n");
-                    System.out.print("Insira o nome da primeira matriz: ");
-                    string1 = scan.next();
-                    int1 = procurarIndex(matrizes, string1);
-                    System.out.print("Insira o nome da segunda matriz: ");
-                    string2 = scan.next();
-                    int2 = procurarIndex(matrizes, string2);
-                    //Nomes inválidos
-                    if (nomesInvalidos(int1, int2)) {
-                        voltarMenu();
-                        limpar();
-                        break;
-                    }
-                    System.out.println();
-
-                    //Nomes válidos
-                    Matriz matrizSoma = new Matriz
-                            (string1 + "+" + string2,
-                            matrizes.get(int1).getLinhas(),
-                            matrizes.get(int2).getColunas());
-                    matrizSoma.setElementos
-                            (calcular.somarMatrizes(matrizes.get(int1), matrizes.get(int2)));
-                    if (matrizSoma.getElementos() == null) {
-                        voltarMenu();
-                        limpar();
-                        break;
-                    }
-                    salvarMatriz(matrizes, matrizSoma);
+                    //***Nome válido***
 
                     voltarMenu();
                     limpar();
@@ -121,35 +98,30 @@ public class Main {
                     limpar();
                     mostrarMatrizes(matrizes);
 
-                    //Informações das matrizes
-                    System.out.println("------SUBTRAIR MATRIZES------\n");
-                    System.out.print("Insira o nome da primeira matriz: ");
+                    //***Informações da matriz***
+                    System.out.println("-------TRANSPOR MATRIZ-------\n");
+                    System.out.print("Insira o nome da matriz que deseja transpor: ");
                     string1 = scan.next();
                     int1 = procurarIndex(matrizes, string1);
-                    System.out.print("Insira o nome da segunda matriz: ");
-                    string2 = scan.next();
-                    int2 = procurarIndex(matrizes, string2);
-                    //Nomes inválidos
-                    if (nomesInvalidos(int1, int2)) {
-                        voltarMenu();
-                        limpar();
-                        break;
-                    }
                     System.out.println();
+                    //***Informações da matriz***
 
-                    //Nomes válidos
-                    Matriz matrizSubtracao = new Matriz
-                            (string1 + "-" + string2,
-                            matrizes.get(int1).getLinhas(),
-                            matrizes.get(int2).getColunas());
-                    matrizSubtracao.setElementos
-                            (calcular.subtrairMatrizes(matrizes.get(int1), matrizes.get(int2)));
-                    if (matrizSubtracao.getElementos() == null) {
+                    //Nome inválido:
+                    if (int1 == -1) {
+                        System.out.println("Matriz não encontrada!\n");
                         voltarMenu();
                         limpar();
                         break;
                     }
-                    salvarMatriz(matrizes, matrizSubtracao);
+
+                    //***Nome válido***
+                    Matriz matrizTransposta = new Matriz(
+                            string1 + " transposta",
+                            matrizes.get(int1).getColunas(),
+                            matrizes.get(int1).getLinhas());
+                    matrizTransposta.setElementos(calcular.transporMatriz(matrizes.get(int1)));
+                    salvarMatriz(matrizes, matrizTransposta);
+                    //***Nome válido***
 
                     voltarMenu();
                     limpar();
@@ -158,40 +130,158 @@ public class Main {
                     limpar();
                     mostrarMatrizes(matrizes);
 
-                    //Informações das matrizes
-                    System.out.println("----MULTIPLICAR MATRIZES----\n");
+                    //***Informações da matriz***
+                    System.out.println("-------OPOR MATRIZ-------\n");
+                    System.out.print("Insira o nome da matriz que deseja opor: ");
+                    string1 = scan.next();
+                    int1 = procurarIndex(matrizes, string1);
+                    System.out.println();
+                    //***Informações da matriz***
+
+                    //Nome inválido:
+                    if (int1 == -1) {
+                        System.out.println("Matriz não encontrada!\n");
+                        voltarMenu();
+                        limpar();
+                        break;
+                    }
+
+                    //***Nome válido***
+                    Matriz matrizOposta = new Matriz(
+                            string1 + " oposta",
+                            matrizes.get(int1).getLinhas(),
+                            matrizes.get(int1).getColunas());
+                    matrizOposta.setElementos(calcular.oporMatriz(matrizes.get(int1)));
+                    salvarMatriz(matrizes, matrizOposta);
+                    //***Nome válido***
+
+                    voltarMenu();
+                    limpar();
+                    break;
+                case 6:
+                    limpar();
+                    mostrarMatrizes(matrizes);
+
+                    //***Informações das matrizes***
+                    System.out.println("-------SOMAR MATRIZES-------\n");
                     System.out.print("Insira o nome da primeira matriz: ");
                     string1 = scan.next();
                     int1 = procurarIndex(matrizes, string1);
                     System.out.print("Insira o nome da segunda matriz: ");
                     string2 = scan.next();
                     int2 = procurarIndex(matrizes, string2);
-                    //Nomes inválidos
+                    System.out.println();
+                    //***Informações das matrizes***
+
+                    //Nomes inválidos:
                     if (nomesInvalidos(int1, int2)) {
                         voltarMenu();
                         limpar();
                         break;
                     }
-                    System.out.println();
 
-                    //Nomes válidos
+                    //***Nomes válidos***
+                    Matriz matrizSoma = new Matriz
+                            (string1 + "+" + string2,
+                            matrizes.get(int1).getLinhas(),
+                            matrizes.get(int2).getColunas());
+                    matrizSoma.setElementos
+                            (calcular.somarMatrizes(matrizes.get(int1), matrizes.get(int2)));
+                    //Soma impossível:
+                    if (matrizSoma.getElementos() == null) {
+                        voltarMenu();
+                        limpar();
+                        break;
+                    }
+                    salvarMatriz(matrizes, matrizSoma);
+                    //***Nomes válidos***
+
+                    voltarMenu();
+                    limpar();
+                    break;
+                case 7:
+                    limpar();
+                    mostrarMatrizes(matrizes);
+
+                    //***Informações das matrizes***
+                    System.out.println("-------SUBTRAIR MATRIZES-------\n");
+                    System.out.print("Insira o nome da primeira matriz: ");
+                    string1 = scan.next();
+                    int1 = procurarIndex(matrizes, string1);
+                    System.out.print("Insira o nome da segunda matriz: ");
+                    string2 = scan.next();
+                    int2 = procurarIndex(matrizes, string2);
+                    System.out.println();
+                    //***Informações das matrizes***
+
+                    //Nomes inválidos:
+                    if (nomesInvalidos(int1, int2)) {
+                        voltarMenu();
+                        limpar();
+                        break;
+                    }
+
+                    //***Nomes válidos***
+                    Matriz matrizSubtracao = new Matriz
+                            (string1 + "-" + string2,
+                            matrizes.get(int1).getLinhas(),
+                            matrizes.get(int2).getColunas());
+                    matrizSubtracao.setElementos
+                            (calcular.subtrairMatrizes(matrizes.get(int1), matrizes.get(int2)));
+                    //Subtração impossível:
+                    if (matrizSubtracao.getElementos() == null) {
+                        voltarMenu();
+                        limpar();
+                        break;
+                    }
+                    salvarMatriz(matrizes, matrizSubtracao);
+                    //***Nomes válidos***
+
+                    voltarMenu();
+                    limpar();
+                    break;
+                case 8:
+                    limpar();
+                    mostrarMatrizes(matrizes);
+
+                    //***Informações das matrizes***
+                    System.out.println("-------MULTIPLICAR MATRIZES-------\n");
+                    System.out.print("Insira o nome da primeira matriz: ");
+                    string1 = scan.next();
+                    int1 = procurarIndex(matrizes, string1);
+                    System.out.print("Insira o nome da segunda matriz: ");
+                    string2 = scan.next();
+                    int2 = procurarIndex(matrizes, string2);
+                    System.out.println();
+                    //***Informações das matrizes***
+
+                    //Nomes inválidos:
+                    if (nomesInvalidos(int1, int2)) {
+                        voltarMenu();
+                        limpar();
+                        break;
+                    }
+
+                    //***Nomes válidos***
                     Matriz matrizMultiplicacao = new Matriz
                             (string1 + "." + string2,
                             matrizes.get(int1).getLinhas(),
                             matrizes.get(int2).getColunas());
                     matrizMultiplicacao.setElementos
                             (calcular.multiplicarMatrizes(matrizes.get(int1), matrizes.get(int2)));
+                    //Multiplicação impossível:
                     if (matrizMultiplicacao.getElementos() == null) {
                         voltarMenu();
                         limpar();
                         break;
                     }
                     salvarMatriz(matrizes, matrizMultiplicacao);
+                    //***Nomes válidos***
 
                     voltarMenu();
                     limpar();
                     break;
-                case 6:
+                case 11:
                     break;
                 default:
                     System.out.println("Opção não encontrada!\n");
@@ -200,7 +290,7 @@ public class Main {
                     break;
             }
         }
-        while (opcaoMenu != 6);
+        while (opcaoMenu != 11);
     }
 
     //Mostrar matriz única

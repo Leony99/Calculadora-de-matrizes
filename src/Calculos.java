@@ -1,4 +1,32 @@
 public class Calculos {
+    public float[][] transporMatriz(Matriz matriz) {
+        float[][] matrizResultante = new float[matriz.getColunas()][matriz.getLinhas()];
+
+        for (int i = 0; i < matriz.getLinhas(); i++){
+            for (int j = 0; j < matriz.getColunas(); j++){
+                matrizResultante[j][i] = matriz.getElementos()[i][j];
+            }
+        }
+
+        return matrizResultante;
+    }
+
+    public float[][] oporMatriz(Matriz matriz) {
+        float[][] matrizResultante = new float[matriz.getLinhas()][matriz.getColunas()];
+
+        for (int i = 0; i < matriz.getLinhas(); i++){
+            for (int j = 0; j < matriz.getColunas(); j++){
+                if (matriz.getElementos()[i][j] == 0) {
+                    matrizResultante[i][j] = 0;
+                    continue;
+                }
+                matrizResultante[i][j] = matriz.getElementos()[i][j] * -1;
+            }
+        }
+
+        return matrizResultante;
+    }
+
     public float[][] somarMatrizes(Matriz matriz1, Matriz matriz2) {
         if (matriz1.getLinhas() != matriz2.getLinhas()
                 || matriz2.getColunas() != matriz2.getColunas()) {
