@@ -120,6 +120,8 @@ public class Main {
                             matrizes.get(int1).getColunas(),
                             matrizes.get(int1).getLinhas());
                     matrizTransposta.setElementos(calcular.transporMatriz(matrizes.get(int1)));
+                    matrizTransposta.setTipoTamanho();
+                    matrizTransposta.setTipoElementos();
                     salvarMatriz(matrizes, matrizTransposta);
                     //***Nome válido***
 
@@ -152,6 +154,8 @@ public class Main {
                             matrizes.get(int1).getLinhas(),
                             matrizes.get(int1).getColunas());
                     matrizOposta.setElementos(calcular.oporMatriz(matrizes.get(int1)));
+                    matrizOposta.setTipoTamanho();
+                    matrizOposta.setTipoElementos();
                     salvarMatriz(matrizes, matrizOposta);
                     //***Nome válido***
 
@@ -193,6 +197,8 @@ public class Main {
                         limpar();
                         break;
                     }
+                    matrizSoma.setTipoTamanho();
+                    matrizSoma.setTipoElementos();
                     salvarMatriz(matrizes, matrizSoma);
                     //***Nomes válidos***
 
@@ -234,6 +240,8 @@ public class Main {
                         limpar();
                         break;
                     }
+                    matrizSubtracao.setTipoTamanho();
+                    matrizSubtracao.setTipoElementos();
                     salvarMatriz(matrizes, matrizSubtracao);
                     //***Nomes válidos***
 
@@ -275,6 +283,8 @@ public class Main {
                         limpar();
                         break;
                     }
+                    matrizMultiplicacao.setTipoTamanho();
+                    matrizMultiplicacao.setTipoElementos();
                     salvarMatriz(matrizes, matrizMultiplicacao);
                     //***Nomes válidos***
 

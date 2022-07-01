@@ -1,4 +1,90 @@
 public class Calculos {
+    public float determinante1(float[][] matriz) {
+        return matriz[0][0];
+    }
+
+    public float determinante2(float[][] matriz) {
+        return matriz[0][0] * matriz[1][1] - matriz[0][1] * matriz [1][0];
+    }
+
+    public float determinanteSarrus(float[][] matriz) {
+        float somatorioDiagPrinc = 0;
+        for (int k = 0; k < 3; k++) {
+            float multiplicador = 1;
+            int contadorI = 0, contadorJ = k;
+            for (int i = 0; i < matriz.length; i++) {
+                for (int j = 0; j < matriz[0].length; j++) {
+                    if (contadorJ == matriz[0].length) {
+                        contadorJ = 0;
+                    }
+                    if (i == contadorI && j == contadorJ) {
+                        multiplicador *= matriz[i][j];
+                        contadorI++;
+                        contadorJ++;
+                    }
+                }
+            }
+            somatorioDiagPrinc += multiplicador;
+        }
+
+        float somatorioDiagSec = 0;
+        for (int k = 2; k >= 0; k--) {
+            float multiplicador = 1;
+            int contadorI = 0, contadorJ = k;
+            for (int i = 0; i < matriz.length; i++) {
+                for (int j = 0; j < matriz[0].length; j++) {
+                    if (contadorJ == -1) {
+                        contadorJ = matriz[0].length - 1;
+                    }
+                    if (i == contadorI && j == contadorJ) {
+                        multiplicador *= matriz[i][j];
+                        contadorI++;
+                        contadorJ--;
+                    }
+                }
+            }
+            somatorioDiagSec += multiplicador;
+        }
+
+        return somatorioDiagPrinc - somatorioDiagSec;
+    }
+
+    public float[][] inverterMatriz(Matriz matriz) {
+        if (matriz.getElementos().length != matriz.getElementos()[0].length) {
+            System.out.println(
+                    "A matriz precisa possuir a mesma quantidade de linhas e colunas!\n");
+            return null;
+        }
+
+        float[][] matrizIdentidade = new float[matriz.getLinhas()][matriz.getColunas()];
+        float[][] matrizResultante = new float[matriz.getLinhas()][matriz.getColunas()];
+        for (int i = 0; i < matrizResultante.length; i++) {
+            for (int j = 0; j < matrizResultante[0].length; j++) {
+
+                if (i == j) {
+                    int[] n = new int[matriz.getElementos()[0].length * 4];
+                    int contador = 0;
+                    for (int aux = 0; aux < matriz.getElementos()[0].length; aux++) {
+                        n[contador] = i;
+                        contador++;
+                        n[contador] = aux;
+                        contador++;
+                        n[contador] = aux;
+                        contador++;
+                        n[contador] = j;
+                        contador++;
+                    }
+
+                }
+                else {
+
+                }
+            }
+        }
+
+        return matrizResultante;
+    }
+
     public float[][] transporMatriz(Matriz matriz) {
         float[][] matrizResultante = new float[matriz.getColunas()][matriz.getLinhas()];
 
