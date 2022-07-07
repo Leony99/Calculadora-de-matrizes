@@ -1,58 +1,60 @@
 public class Calculos {
-    public float determinante1(float[][] matriz) {
-        return matriz[0][0];
-    }
+    public float determinante(float[][] matriz) {
+        float det = 0;
 
-    public float determinante2(float[][] matriz) {
-        return matriz[0][0] * matriz[1][1] - matriz[0][1] * matriz [1][0];
-    }
+        if (matriz.length == 1) {
+            det = matriz[0][0];
+        }
+        else if (matriz.length == 2) {
+            det = matriz[0][0] * matriz[1][1] - matriz[0][1] * matriz [1][0];
+        }
+        //Regra de Sarrus
+        else if (matriz.length == 3) {
+            det = matriz[0][0] * matriz[1][1] * matriz[2][2]
+                    + matriz[0][1] * matriz[1][2] * matriz[2][0]
+                    + matriz[0][2] * matriz[1][0] * matriz[2][1]
+                    - matriz[0][2] * matriz[1][1] * matriz[2][0]
+                    - matriz[0][0] * matriz[1][2] * matriz[2][1]
+                    - matriz[0][1] * matriz[1][0] * matriz[2][2];
+        }
+        //Teorema de Laplace
+        else {
+            float[][] matrizMenor;
+            int iMenor, jMenor;
 
-    public float determinanteSarrus(float[][] matriz) {
-        float somatorioDiagPrinc = 0;
-        for (int k = 0; k < 3; k++) {
-            float multiplicador = 1;
-            int contadorI = 0, contadorJ = k;
-            for (int i = 0; i < matriz.length; i++) {
-                for (int j = 0; j < matriz[0].length; j++) {
-                    if (contadorJ == matriz[0].length) {
-                        contadorJ = 0;
+            for (int j = 0; j < matriz[0].length; j++) {
+                if (matriz[0][j] != 0) {
+                    matrizMenor = new float[matriz.length - 1][matriz[0].length - 1];
+                    iMenor = 0;
+                    jMenor = 0;
+
+                    for (int linha = 1; linha < matriz.length; linha++) {
+                        for (int coluna = 0; coluna < matriz[0].length; coluna++) {
+                            if (coluna != j) {
+                                matrizMenor[iMenor][jMenor] = matriz[linha][coluna];
+                                jMenor++;
+                            }
+                        }
+                        iMenor++;
+                        jMenor = 0;
                     }
-                    if (i == contadorI && j == contadorJ) {
-                        multiplicador *= matriz[i][j];
-                        contadorI++;
-                        contadorJ++;
-                    }
+
+                    det += Math.pow(-1, j) * matriz[0][j] * determinante(matrizMenor);
                 }
             }
-            somatorioDiagPrinc += multiplicador;
         }
 
-        float somatorioDiagSec = 0;
-        for (int k = 2; k >= 0; k--) {
-            float multiplicador = 1;
-            int contadorI = 0, contadorJ = k;
-            for (int i = 0; i < matriz.length; i++) {
-                for (int j = 0; j < matriz[0].length; j++) {
-                    if (contadorJ == -1) {
-                        contadorJ = matriz[0].length - 1;
-                    }
-                    if (i == contadorI && j == contadorJ) {
-                        multiplicador *= matriz[i][j];
-                        contadorI++;
-                        contadorJ--;
-                    }
-                }
-            }
-            somatorioDiagSec += multiplicador;
-        }
-
-        return somatorioDiagPrinc - somatorioDiagSec;
+        return det;
     }
 
     public float[][] inverterMatriz(Matriz matriz) {
         if (matriz.getElementos().length != matriz.getElementos()[0].length) {
             System.out.println(
                     "A matriz precisa possuir a mesma quantidade de linhas e colunas!\n");
+            return null;
+        }
+        if (matriz.getDeterminante() == 0) {
+            System.out.println("Matriz de determinante igual a zero não possui inversa!");
             return null;
         }
 

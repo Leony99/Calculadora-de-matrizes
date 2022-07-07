@@ -118,15 +118,6 @@ public class Matriz {
     }
     public void setDeterminante(float[][] matriz){
         Calculos calcular = new Calculos();
-
-        if (getLinhas() == 1) {
-            this.determinante = calcular.determinante1(matriz);
-        }
-        else if (getLinhas() == 2) {
-            this.determinante = calcular.determinante2(matriz);
-        }
-        else if (getLinhas() == 3) {
-            this.determinante = calcular.determinanteSarrus(matriz);
-        }
+        this.determinante = calcular.determinante(matriz);
     }
 }
