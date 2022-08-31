@@ -17,17 +17,15 @@ public class Main {
             System.out.println("1 - Criar matriz");
             System.out.println("2 - Excluir matriz");
             System.out.println("----------------------------");
-            //System.out.println("3 - Inverter matriz");
-            System.out.println("4 - Transpor matriz");
-            System.out.println("5 - Opor matriz");
+            System.out.println("3 - Transpor matriz");
+            System.out.println("4 - Opor matriz");
             System.out.println("----------------------------");
+            System.out.println("5 - Multiplicar por número real");
             System.out.println("6 - Somar matrizes");
             System.out.println("7 - Subtrair matrizes");
             System.out.println("8 - Multiplicar matrizes");
-            //System.out.println("9 - Dividir matrizes");
-            //System.out.println("10 - Multiplicar por número real");
             System.out.println("----------------------------");
-            System.out.println("11 - Sair\n");
+            System.out.println("9 - Sair\n");
             System.out.print("Insira a opção: ");
             opcaoMenu = scan.nextInt();
 
@@ -94,7 +92,7 @@ public class Main {
                     voltarMenu();
                     limpar();
                     break;
-                case 4:
+                case 3:
                     limpar();
                     mostrarMatrizes(matrizes);
 
@@ -115,18 +113,20 @@ public class Main {
                     }
 
                     //***Nome válido***
-                    Matriz matrizTransposta = new Matriz(
-                            string1 + " transposta",
+                    Matriz matrizTransposta = new Matriz
+                            (string1 + "(transposta)",
                             matrizes.get(int1).getColunas(),
                             matrizes.get(int1).getLinhas());
                     matrizTransposta.setElementos(calcular.transporMatriz(matrizes.get(int1)));
+                    matrizTransposta.setTipoTamanho();
+                    matrizTransposta.setTipoElementos();
                     salvarMatriz(matrizes, matrizTransposta);
                     //***Nome válido***
 
                     voltarMenu();
                     limpar();
                     break;
-                case 5:
+                case 4:
                     limpar();
                     mostrarMatrizes(matrizes);
 
@@ -147,12 +147,50 @@ public class Main {
                     }
 
                     //***Nome válido***
-                    Matriz matrizOposta = new Matriz(
-                            string1 + " oposta",
+                    Matriz matrizOposta = new Matriz
+                            (string1 + "(oposta)",
                             matrizes.get(int1).getLinhas(),
                             matrizes.get(int1).getColunas());
                     matrizOposta.setElementos(calcular.oporMatriz(matrizes.get(int1)));
+                    matrizOposta.setTipoTamanho();
+                    matrizOposta.setTipoElementos();
                     salvarMatriz(matrizes, matrizOposta);
+                    //***Nome válido***
+
+                    voltarMenu();
+                    limpar();
+                    break;
+                case 5:
+                    limpar();
+                    mostrarMatrizes(matrizes);
+
+                    //***Informações da matriz***
+                    System.out.println("-------MULTIPLICAR MATRIZ POR NÚMERO REAL-------\n");
+                    System.out.print("Insira o nome da matriz que deseja multiplicar: ");
+                    string1 = scan.next();
+                    int1 = procurarIndex(matrizes, string1);
+                    System.out.print("Insira o número a multiplicar: ");
+                    float n = scan.nextFloat();
+                    System.out.println();
+                    //***Informações da matriz***
+
+                    //Nome inválido:
+                    if (int1 == -1) {
+                        System.out.println("Matriz não encontrada!\n");
+                        voltarMenu();
+                        limpar();
+                        break;
+                    }
+
+                    //***Nome válido***
+                    Matriz matrizMultiplicada = new Matriz
+                            (string1 + "x" + n,
+                            matrizes.get(int1).getLinhas(),
+                            matrizes.get(int1).getColunas());
+                    matrizMultiplicada.setElementos(calcular.multiplicarPorNumero(matrizes.get(int1), n));
+                    matrizMultiplicada.setTipoTamanho();
+                    matrizMultiplicada.setTipoElementos();
+                    salvarMatriz(matrizes, matrizMultiplicada);
                     //***Nome válido***
 
                     voltarMenu();
@@ -193,6 +231,8 @@ public class Main {
                         limpar();
                         break;
                     }
+                    matrizSoma.setTipoTamanho();
+                    matrizSoma.setTipoElementos();
                     salvarMatriz(matrizes, matrizSoma);
                     //***Nomes válidos***
 
@@ -234,6 +274,8 @@ public class Main {
                         limpar();
                         break;
                     }
+                    matrizSubtracao.setTipoTamanho();
+                    matrizSubtracao.setTipoElementos();
                     salvarMatriz(matrizes, matrizSubtracao);
                     //***Nomes válidos***
 
@@ -275,13 +317,15 @@ public class Main {
                         limpar();
                         break;
                     }
+                    matrizMultiplicacao.setTipoTamanho();
+                    matrizMultiplicacao.setTipoElementos();
                     salvarMatriz(matrizes, matrizMultiplicacao);
                     //***Nomes válidos***
 
                     voltarMenu();
                     limpar();
                     break;
-                case 11:
+                case 9:
                     break;
                 default:
                     System.out.println("Opção não encontrada!\n");
@@ -290,25 +334,25 @@ public class Main {
                     break;
             }
         }
-        while (opcaoMenu != 11);
+        while (opcaoMenu != 9);
     }
 
     //Mostrar matriz única
     private static void mostrarMatriz(Matriz matriz){
         //Mostrar nome, tamanho e tipo da matriz
-        System.out.print("Matriz" + "(" + matriz.getNome() + ")" +
-                "[" + matriz.getLinhas() + "x" + matriz.getColunas() + "]");
+        System.out.print("Matriz [" + matriz.getNome() + "]" +
+                " - " + matriz.getLinhas() + "x" + matriz.getColunas());
         if (matriz.getTipoTamanho() != null && matriz.getTipoElementos() != null) {
-            System.out.println("{Matriz " + matriz.getTipoTamanho() + " e " + matriz.getTipoElementos() + "}:");
+            System.out.println(" - Matriz " + matriz.getTipoTamanho() + " e " + matriz.getTipoElementos() + ":");
         }
         else if (matriz.getTipoTamanho() != null) {
-            System.out.println("{Matriz " + matriz.getTipoTamanho() + "}:");
+            System.out.println(" - Matriz " + matriz.getTipoTamanho() + ":");
         }
         else if (matriz.getTipoElementos() != null) {
-            System.out.println("{Matriz " + matriz.getTipoElementos() + "}:");
+            System.out.println(" - Matriz " + matriz.getTipoElementos() + ":");
         }
         else {
-            System.out.println("{Matriz Normal}:");
+            System.out.println(" - Matriz Normal:");
         }
 
         //Mostrar elementos

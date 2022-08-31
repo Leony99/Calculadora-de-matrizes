@@ -1,4 +1,54 @@
 public class Calculos {
+    public float determinante(float[][] matriz) {
+        float det = 0;
+
+        //Matriz de ordem 1
+        if (matriz.length == 1) {
+            det = matriz[0][0];
+        }
+        //Matriz de ordem 2
+        else if (matriz.length == 2) {
+            det = matriz[0][0] * matriz[1][1] - matriz[0][1] * matriz [1][0];
+        }
+        //Matriz de ordem 3 - Regra de Sarrus
+        else if (matriz.length == 3) {
+            det = matriz[0][0] * matriz[1][1] * matriz[2][2]
+                    + matriz[0][1] * matriz[1][2] * matriz[2][0]
+                    + matriz[0][2] * matriz[1][0] * matriz[2][1]
+                    - matriz[0][2] * matriz[1][1] * matriz[2][0]
+                    - matriz[0][0] * matriz[1][2] * matriz[2][1]
+                    - matriz[0][1] * matriz[1][0] * matriz[2][2];
+        }
+        //Matriz de ordem 4+ - Teorema de Laplace
+        else {
+            float[][] matrizMenor;
+            int iMenor, jMenor;
+
+            for (int j = 0; j < matriz[0].length; j++) {
+                if (matriz[0][j] != 0) {
+                    matrizMenor = new float[matriz.length - 1][matriz[0].length - 1];
+                    iMenor = 0;
+                    jMenor = 0;
+
+                    for (int linha = 1; linha < matriz.length; linha++) {
+                        for (int coluna = 0; coluna < matriz[0].length; coluna++) {
+                            if (coluna != j) {
+                                matrizMenor[iMenor][jMenor] = matriz[linha][coluna];
+                                jMenor++;
+                            }
+                        }
+                        iMenor++;
+                        jMenor = 0;
+                    }
+
+                    det += Math.pow(-1, j) * matriz[0][j] * determinante(matrizMenor);
+                }
+            }
+        }
+
+        return det;
+    }
+
     public float[][] transporMatriz(Matriz matriz) {
         float[][] matrizResultante = new float[matriz.getColunas()][matriz.getLinhas()];
 
@@ -21,6 +71,18 @@ public class Calculos {
                     continue;
                 }
                 matrizResultante[i][j] = matriz.getElementos()[i][j] * -1;
+            }
+        }
+
+        return matrizResultante;
+    }
+
+    public float[][] multiplicarPorNumero(Matriz matriz, float n) {
+        float[][] matrizResultante = new float[matriz.getLinhas()][matriz.getColunas()];
+
+        for (int i = 0; i < matriz.getElementos().length; i++){
+            for (int j = 0; j < matriz.getElementos()[0].length; j++){
+                matrizResultante[i][j] = matriz.getElementos()[i][j] * n;
             }
         }
 
