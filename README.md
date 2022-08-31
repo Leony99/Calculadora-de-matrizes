@@ -1,4 +1,4 @@
-![Badge-Issues](https://img.shields.io/github/issues/Leony99/Java-Console-CalculadoraDeMatrizes?label=Issues&style=plastic)
+![Badge-Issues](https://img.shields.io/github/issues/Leony99/Calculadora-de-matrizes?label=Issues&style=plastic)
 
 ***
 
